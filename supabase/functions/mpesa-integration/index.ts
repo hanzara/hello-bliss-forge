@@ -31,7 +31,7 @@ async function getAccessToken(consumerKey: string, consumerSecret: string): Prom
   const auth = btoa(`${consumerKey}:${consumerSecret}`);
   
   try {
-    const response = await fetch('https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials', {
+    const response = await fetch('https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials', {
       method: 'GET',
       headers: {
         'Authorization': `Basic ${auth}`,
@@ -89,7 +89,7 @@ async function initiateSTKPush(accessToken: string, phoneNumber: string, amount:
   console.log('STK Push Request:', JSON.stringify(stkPushRequest, null, 2));
 
   try {
-    const response = await fetch('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest', {
+    const response = await fetch('https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
