@@ -1,0 +1,13 @@
+project_id = "yrywjbxqlqpdzrudfupm"
+
+[functions.ai-finance-chat]
+verify_jwt = true
+
+[functions.wifi-purchase-package]
+verify_jwt = true
+
+[functions.wifi-wallet-topup]
+verify_jwt = true
+
+[functions.wifi-extend-session]
+verify_jwt = true
