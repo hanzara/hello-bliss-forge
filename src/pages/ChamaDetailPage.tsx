@@ -17,6 +17,9 @@ import { ContributionLeaderboard } from '@/components/chama/ContributionLeaderbo
 import { RoleBasedDashboard } from '@/components/chama/RoleBasedDashboard';
 import { LoanManagementPanel } from '@/components/chama/LoanManagementPanel';
 import { RealtimeContributionFeed } from '@/components/chama/RealtimeContributionFeed';
+import { MemberUnlockModal } from '@/components/chama/MemberUnlockModal';
+import { MemberManagementTable } from '@/components/chama/MemberManagementTable';
+import WalletDashboard from '@/components/chama/WalletDashboard';
 import { useCSVExportChama } from '@/hooks/useCSVExportChama';
 import { useChamaLoans } from '@/hooks/useChamaLoans';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -189,8 +192,12 @@ const ChamaDetailPage: React.FC = () => {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="dashboard" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 bg-white/50 backdrop-blur-sm">
+          <TabsList className="grid w-full grid-cols-6 bg-white/50 backdrop-blur-sm">
             <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+            <TabsTrigger value="wallet">
+              <WalletIcon className="h-4 w-4 mr-2" />
+              Wallet
+            </TabsTrigger>
             <TabsTrigger value="members">Members</TabsTrigger>
             <TabsTrigger value="contributions">Contributions</TabsTrigger>
             <TabsTrigger value="loans">Loans</TabsTrigger>
@@ -217,16 +224,28 @@ const ChamaDetailPage: React.FC = () => {
             </div>
           </TabsContent>
 
+          <TabsContent value="wallet" className="space-y-4">
+            <WalletDashboard
+              user={user}
+              chamaId={id!}
+              userRole={userRole?.role}
+            />
+          </TabsContent>
+
           <TabsContent value="members" className="space-y-4">
             <Card className="border-0 shadow-lg">
               <CardHeader>
                 <CardTitle>Members ({chama.current_members})</CardTitle>
                 <CardDescription>
-                  Manage chama members and their roles
+                  Manage chama members, roles, and wallet access
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">Member management coming soon...</p>
+                <MemberManagementTable 
+                  members={members || []} 
+                  isAdmin={isAdmin}
+                  chamaId={id!}
+                />
               </CardContent>
             </Card>
           </TabsContent>
